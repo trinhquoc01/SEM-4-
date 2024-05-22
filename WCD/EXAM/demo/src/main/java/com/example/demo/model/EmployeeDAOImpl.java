@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDAOImpl {
+public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public void addEmployee(Employee employee) {
         Connection conn = null;

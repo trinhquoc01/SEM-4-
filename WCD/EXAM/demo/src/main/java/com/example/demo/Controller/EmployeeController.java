@@ -14,12 +14,18 @@ import java.util.List;
 
 //@WebServlet("/EmployeeController")
 public class EmployeeController extends HttpServlet {
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+    }
+
     private EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String fullname = request.getParameter("fullname");
+        String fullName = request.getParameter("fullName");
         String birthdayStr = request.getParameter("birthday");
         String address = request.getParameter("address");
         String position = request.getParameter("position");
@@ -27,7 +33,7 @@ public class EmployeeController extends HttpServlet {
 
         Date birthday = Date.valueOf(birthdayStr);
 
-        Employee employee = new Employee(fullname, birthday, address, position, department);
+        Employee employee = new Employee(fullName, birthday, address, position, department);
         employeeDAO.addEmployee(employee);
 
         response.sendRedirect("EmployeeController?action=list");
