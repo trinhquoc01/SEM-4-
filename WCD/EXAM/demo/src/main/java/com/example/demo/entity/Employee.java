@@ -1,15 +1,23 @@
 package com.example.demo.entity;
 
+import java.sql.Date;
+
 public class Employee {
     private int id;
-    private String FullName;
-    private String Birthday;
-    private String Address;
-    private String Position;
-    private String Department;
+    private String fullName;
+    private Date birthday;
+    private String address;
+    private String position;
+    private String department;
 
-    public Employee(){
+    public Employee() {}
 
+    public Employee(String fullName, Date birthday, String address, String position, String department) {
+        this.fullName = fullName;
+        this.birthday = birthday;
+        this.address = address;
+        this.position = position;
+        this.department = department;
     }
 
     public int getId() {
@@ -21,42 +29,42 @@ public class Employee {
     }
 
     public String getFullName() {
-        return FullName;
+        return fullName;
     }
 
     public void setFullName(String fullName) {
-        FullName = fullName;
+        this.fullName = fullName;
     }
 
-    public String getBirthday() {
-        return Birthday;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBirthday(String birthday) {
-        Birthday = birthday;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public String getPosition() {
-        return Position;
+        return position;
     }
 
     public void setPosition(String position) {
-        Position = position;
+        this.position = position;
     }
 
     public String getDepartment() {
-        return Department;
+        return department;
     }
 
     public void setDepartment(String department) {
-        Department = department;
+        this.department = department;
     }
 }

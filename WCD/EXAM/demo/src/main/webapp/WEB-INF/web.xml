@@ -4,11 +4,11 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
     <servlet>
-        <servlet-name>EmployeeServlet</servlet-name>
-        <servlet-class>com.example.demo.Controller.EmployeeServlet</servlet-class>
+        <servlet-name>EmployeeController</servlet-name>
+        <servlet-class>com.example.demo.Controller.EmployeeController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EmployeeServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>EmployeeController</servlet-name>
+        <url-pattern>/EmployeeController</url-pattern>
     </servlet-mapping>
 </web-app>
