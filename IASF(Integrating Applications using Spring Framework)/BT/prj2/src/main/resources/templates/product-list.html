@@ -5,20 +5,38 @@
     <title>Product List</title>
 </head>
 <body>
-    <h1>Product Details</h1>
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Description</th>
-    </tr>
-    <tr th:each="product : ${products}">
-        <td th:text="${product.id}">ID</td>
-        <td th:text="${product.name}">ID</td>
-        <td th:text="${product.price}">ID</td>
-        <td th:text="${product.description}">ID</td>
-    </tr>
-</table>
+<div class="container">
+    <h1 class="mt-5">Product List</h1>
+    <a href="/create" class="btn btn-primary mt-3">Add New Product</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}">ID</td>
+            <td th:text="${product.name}">Name</td>
+            <td th:text="${product.description}">Description</td>
+            <td th:text="${product.price}">Price</td>
+            <td>
+                <form th:action="@{/edit/{id}(id=${product.id})}" method="get" style="display:inline;">
+
+
+                    <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                <form th:action="@{/delete/{id}(id=${product.id})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
