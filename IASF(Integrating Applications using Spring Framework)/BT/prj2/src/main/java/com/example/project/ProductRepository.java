@@ -1,4 +1,4 @@
-package com.example.prj2;
+package com.example.project;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

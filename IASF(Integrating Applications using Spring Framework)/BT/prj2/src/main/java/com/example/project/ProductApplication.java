@@ -1,13 +1,13 @@
-package com.example.prj2;
+package com.example.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Prj2Application {
+public class ProductApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Prj2Application.class, args);
+        SpringApplication.run(ProductApplication.class, args);
     }
 
 }

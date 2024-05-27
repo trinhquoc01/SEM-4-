@@ -1,10 +1,10 @@
-package com.example.prj2;
+package com.example.project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Prj2ApplicationTests {
+class ProductApplicationTests {
 
     @Test
     void contextLoads() {
