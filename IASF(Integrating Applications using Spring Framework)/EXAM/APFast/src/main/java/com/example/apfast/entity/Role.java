@@ -1,28 +1,17 @@
 package com.example.apfast.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
-@Entity
+import java.util.List;
+
 public class Role {
-    @Id
-    private String userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Member member;
     private String role;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
 }

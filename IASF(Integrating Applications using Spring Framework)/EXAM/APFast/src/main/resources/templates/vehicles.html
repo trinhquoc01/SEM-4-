@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+<body>
+<header>
+    <h1>Vehicles</h1>
+    <div class="logout-link">
+        <a class="btn btn-danger" th:href="@{/logout}">Logout</a>
+    </div>
+
+</header>
+<div class="container">
+    <h1>Vehicles</h1>
+    <a class="btn btn-primary" th:href="@{/vehicles/new}">Add New Vehicle</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Model</th>
+            <th>Year of Manufacture</th>
+            <th>Color</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="vehicle : ${vehicles}">
+            <td th:text="${vehicle.vehicle_id}"></td>
+            <td th:text="${vehicle.vehicle_name}"></td>
+            <td th:text="${vehicle.vehicle_model}"></td>
+            <td th:text="${vehicle.year_of_manufacture}"></td>
+            <td th:text="${vehicle.vehicle_color}"></td>
+            <td>
+                <a class="btn btn-warning" th:href="@{/vehicles/edit/{id}(id=${vehicle.vehicle_id})}">Edit</a>
+                <a class="btn btn-danger" th:href="@{/vehicles/delete/{id}(id=${vehicle.vehicle_id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div></body>
+</html>

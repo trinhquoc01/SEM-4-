@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h2 class="mt-5">Update Vehicle</h2>
+    <form action="#" th:action="@{/vehicles/{id}(id=${vehicle.id})}" th:object="${vehicle}" method="post">
+        <div class="mb-3">
+            <label for="vehicleName" class="form-label">Name:</label>
+            <input type="text" id="vehicleName" name="vehicleName" class="form-control" th:field="*{}">
+        </div>
+        <div class="mb-3">
+            <label for="vehicleModel" class="form-label">Model:</label>
+            <input type="text" id="vehicleModel" name="vehicleModel" class="form-control" th:field="*{vehicleModel}">
+        </div>
+        <div class="mb-3">
+            <label for="yearOfManufacture" class="form-label">Year of Manufacture:</label>
+            <input type="number" id="yearOfManufacture" name="yearOfManufacture" class="form-control" th:field="*{yearOfManufacture}">
+        </div>
+        <div class="mb-3">
+            <label for="vehicleColor" class="form-label">Color:</label>
+            <input type="text" id="vehicleColor" name="vehicleColor" class="form-control" th:field="*{vehicleColor}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+</body>
+</html>

@@ -7,53 +7,53 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Vehicle {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long vehicleId;
-    private String vehicleName;
-    private String vehicleModel;
-    private int yearOfManufacture;
-    private String vehicleColor;
+    private int vehicle_id;
 
-    public Vehicle() {}
+    private String vehicle_name;
+    private String vehicle_model;
+    private String vehicle_color;
+    private int year_of_manufacture;
 
-    public Long getVehicleId() {
-        return vehicleId;
+    public int getVehicle_id() {
+        return vehicle_id;
     }
 
-    public void setVehicleId(Long vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicle_id(int vehicle_id) {
+        this.vehicle_id = vehicle_id;
     }
 
-    public String getVehicleName() {
-        return vehicleName;
+    public String getVehicle_name() {
+        return vehicle_name;
     }
 
-    public void setVehicleName(String vehicleName) {
-        this.vehicleName = vehicleName;
+    public void setVehicle_name(String vehicle_name) {
+        this.vehicle_name = vehicle_name;
     }
 
-    public String getVehicleModel() {
-        return vehicleModel;
+    public String getVehicle_model() {
+        return vehicle_model;
     }
 
-    public void setVehicleModel(String vehicleModel) {
-        this.vehicleModel = vehicleModel;
+    public void setVehicle_model(String vehicle_model) {
+        this.vehicle_model = vehicle_model;
     }
 
-    public int getYearOfManufacture() {
-        return yearOfManufacture;
+    public String getVehicle_color() {
+        return vehicle_color;
     }
 
-    public void setYearOfManufacture(int yearOfManufacture) {
-        this.yearOfManufacture = yearOfManufacture;
+    public void setVehicle_color(String vehicle_color) {
+        this.vehicle_color = vehicle_color;
     }
 
-    public String getVehicleColor() {
-        return vehicleColor;
+    public int getYear_of_manufacture() {
+        return year_of_manufacture;
     }
 
-    public void setVehicleColor(String vehicleColor) {
-        this.vehicleColor = vehicleColor;
+    public void setYear_of_manufacture(int year_of_manufacture) {
+        this.year_of_manufacture = year_of_manufacture;
     }
 }
