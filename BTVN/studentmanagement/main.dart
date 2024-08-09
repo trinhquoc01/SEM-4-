@@ -1,6 +1,29 @@
 import 'dart:convert';
 import 'dart:io';
 
+// Định nghĩa lớp Subject
+class Subject {
+  String name;
+  List<int> scores;
+
+  Subject({required this.name, required this.scores});
+
+  factory Subject.fromJson(Map<String, dynamic> json) {
+    return Subject(
+      name: json['name'],
+      scores: List<int>.from(json['scores']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'scores': scores,
+    };
+  }
+}
+
+// Định nghĩa lớp Student
 class Student {
   int id;
   String name;
@@ -9,87 +32,132 @@ class Student {
   Student({required this.id, required this.name, required this.subjects});
 
   factory Student.fromJson(Map<String, dynamic> json) {
-    var subjectsJson = json['subjects'] as List;
-    List<Subject> subjectsList =
-    subjectsJson.map((i) => Subject.fromJson(i)).toList();
+    var list = json['subjects'] as List;
+    List<Subject> subjectList = list.map((i) => Subject.fromJson(i)).toList();
 
     return Student(
-        id: json['id'], name: json['name'], subjects: subjectsList);
+      id: json['id'],
+      name: json['name'],
+      subjects: subjectList,
+    );
   }
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'subjects': subjects.map((subject) => subject.toJson()).toList(),
-  };
-}
-
-class Subject {
-  String name;
-  List<int> scores;
-
-  Subject({required this.name, required this.scores});
-
-  factory Subject.fromJson(Map<String, dynamic> json) {
-    var scoresJson = json['scores'].cast<int>();
-    return Subject(name: json['name'], scores: scoresJson);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'subjects': subjects.map((e) => e.toJson()).toList(),
+    };
   }
-
-  Map<String, dynamic> toJson() => {
-    'name': name,
-    'scores': scores,
-  };
 }
 
-void main() async {
-  // Đọc dữ liệu từ file JSON
-  final file = File('student.json');
-  final jsonString = await file.readAsString();
-  final jsonData = json.decode(jsonString);
+// Hàm load dữ liệu từ file JSON
+List<Student> loadStudents(String fileName) {
+  final file = File(fileName);
+  final jsonData = jsonDecode(file.readAsStringSync())['students'] as List;
+  return jsonData.map((e) => Student.fromJson(e)).toList();
+}
 
-  List<Student> students = (jsonData['students'] as List)
-      .map((i) => Student.fromJson(i))
-      .toList();
+// Hàm lưu dữ liệu vào file JSON
+void saveStudents(List<Student> students, String fileName) {
+  final file = File(fileName);
+  final jsonString =
+  jsonEncode({'students': students.map((e) => e.toJson()).toList()});
+  file.writeAsStringSync(jsonString);
+}
 
-  // Hiển thị toàn bộ sinh viên
-  print('1. Hiển thị toàn bộ sinh viên:');
+// Hiển thị toàn bộ sinh viên
+void displayAllStudents(List<Student> students) {
   for (var student in students) {
     print('ID: ${student.id}, Name: ${student.name}');
     for (var subject in student.subjects) {
       print('  Subject: ${subject.name}, Scores: ${subject.scores}');
     }
   }
+}
 
-  // Thêm sinh viên mới
-  print('\n2. Thêm sinh viên mới:');
-  var newStudent = Student(
-      id: 3,
-      name: 'Nguyen Van A',
-      subjects: [Subject(name: 'Math', scores: [9, 8, 7])]);
+// Thêm sinh viên mới
+void addStudent(List<Student> students, Student newStudent) {
   students.add(newStudent);
+}
 
-  // Sửa thông tin sinh viên
-  print('\n3. Sửa thông tin sinh viên:');
-  var studentToEdit = students.firstWhere((student) => student.id == 1);
-  studentToEdit.name = 'Truong Gia Binh Updated';
+// Chỉnh sửa thông tin sinh viên
+void editStudent(List<Student> students, int id,
+    {String? newName, List<Subject>? newSubjects}) {
+  var student = students.firstWhere((student) => student.id == id,
+      orElse: () => throw 'Student not found');
+  if (newName != null) {
+    student.name = newName;
+  }
+  if (newSubjects != null) {
+    student.subjects = newSubjects;
+  }
+}
 
-  // Tìm kiếm sinh viên theo Tên hoặc ID
-  print('\n4. Tìm kiếm sinh viên theo Tên hoặc ID:');
-  var searchId = 2;
-  var foundStudent =
-  students.firstWhere((student) => student.id == searchId, orElse: () => Student(id: 0, name: 'Not Found', subjects: []));
-  print('Found Student: ID: ${foundStudent.id}, Name: ${foundStudent.name}');
+// Tìm kiếm sinh viên theo tên hoặc ID
+Student? searchStudent(List<Student> students, {String? name, int? id}) {
+  return students.firstWhere(
+        (student) =>
+    (name != null && student.name == name) ||
+        (id != null && student.id == id),
+    orElse: () => throw 'Student not found',
+  );
+}
 
-  // Hiển thị các sinh viên có điểm môn thi cao nhất
-  print('\n5. Hiển thị các sinh viên có điểm môn thi cao nhất:');
+// Hiển thị sinh viên có điểm cao nhất trong môn học
+void displayTopScorers(List<Student> students, String subjectName) {
+  int highestScore = 0;
   for (var student in students) {
     for (var subject in student.subjects) {
-      int maxScore = subject.scores.reduce((curr, next) => curr > next ? curr : next);
-      print('Student: ${student.name}, Subject: ${subject.name}, Highest Score: $maxScore');
+      if (subject.name == subjectName) {
+        highestScore = highestScore <
+            subject.scores.reduce((a, b) => a > b ? a : b)
+            ? subject.scores.reduce((a, b) => a > b ? a : b)
+            : highestScore;
+      }
     }
   }
+  print('Students with the highest score of $highestScore in $subjectName:');
+  for (var student in students) {
+    for (var subject in student.subjects) {
+      if (subject.name == subjectName &&
+          subject.scores.contains(highestScore)) {
+        print('${student.name}');
+      }
+    }
+  }
+}
 
-  // Cập nhật lại dữ liệu vào file JSON
-  var updatedJsonData = {'students': students.map((student) => student.toJson()).toList()};
-  await file.writeAsString(json.encode(updatedJsonData));
+// Hàm chính
+void main() {
+  List<Student> students = loadStudents('Student.json');
+
+  displayAllStudents(students); // Hiển thị toàn bộ sinh viên
+
+  // Thêm một sinh viên mới
+  addStudent(students,
+      Student(id: 3, name: 'Nguyen Van A', subjects: [
+        Subject(name: 'Math', scores: [7, 8, 9]),
+        Subject(name: 'Physics', scores: [6, 8, 7])
+      ]));
+
+  // Chỉnh sửa thông tin sinh viên
+  editStudent(students, 1, newName: 'Tran Van B', newSubjects: [
+    Subject(name: 'Math', scores: [8, 9, 10]),
+    Subject(name: 'Physics', scores: [9, 9, 9])
+  ]);
+
+  // Tìm kiếm sinh viên
+  try {
+    var student = searchStudent(students, id: 1);
+    print('Found student: ${student!.name}');
+  } catch (e) {
+    print(e);
+  }
+
+  // Hiển thị sinh viên có điểm cao nhất trong môn Math
+  displayTopScorers(students, 'Math');
+
+  // Lưu lại các thay đổi
+  saveStudents(students, 'Student.json');
 }
