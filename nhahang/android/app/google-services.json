@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "135874285815",
-    "project_id": "restaurant-c32b8",
-    "storage_bucket": "restaurant-c32b8.appspot.com"
+    "project_number": "432290918486",
+    "project_id": "nhahang-b529a",
+    "storage_bucket": "nhahang-b529a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:135874285815:android:fd76776996e7482ae943f2",
+        "mobilesdk_app_id": "1:432290918486:android:bdd39d0b970ac5c595cbf7",
         "android_client_info": {
-          "package_name": "com.example.restaurant"
+          "package_name": "com.example.nhahang"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB_vOuCML5vEc-DRF3uZNVQGDZw0mkiLKw"
+          "current_key": "AIzaSyDTzPPI7VxE4uK6nDF1FqvsBjeLS3M3jJA"
         }
       ],
       "services": {
